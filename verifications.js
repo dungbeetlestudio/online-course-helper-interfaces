@@ -26,7 +26,7 @@ var init = function (app) {
         db.delete(name)
     })
 
-    app.get('/online-course-helper/putVerificationState', function (req, res) {
+    app.get('/online-course-helper/putVerificationStatus', function (req, res) {
         console.log('/putVerificationState:')
         fs.unlinkSync(`online-course-helper/verifications/${req.query.name}`)
         res.setHeader('Access-Control-Allow-Credentials', true)
