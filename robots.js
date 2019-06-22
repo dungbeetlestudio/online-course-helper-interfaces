@@ -1,5 +1,5 @@
 var db = {
-    '614332022': {        //成功则返回结果，否则null，并设置错误描述
+    'zhouhongbo': {
         course: 'Ionic 4的学习与使用',            //直播间名，或者课程名
         accounts: [                              //用户提供的额外学生
             ['517013400', 'xfskyl'],             //需要执行任务的学生账号1
@@ -24,6 +24,8 @@ var db = {
     }
 }
 
+var studentStatus = { '517013400': '上课中' }
+
 var init = function (app) {
     console.log('init peoples service.')
     app.get('/online-course-helper/sign', function (req, res) {
@@ -34,36 +36,37 @@ var init = function (app) {
         res.send({ ret: 'interfaces not implements!', err: true })
     })
 
-    app.get('/online-course-helper/putOnlineCourseTask', function (req, res) {
+    app.post('/online-course-helper/putOnlineCourseTask', function (req, res) {
         console.log('/putOnlineCourseTask:')
-        console.log(req.query)
+        db[req.body.name] = req.body
         res.setHeader('Access-Control-Allow-Credentials', true)
         res.setHeader('Access-Control-Allow-Origin', req.headers.origin ? req.headers.origin : '*')
-        res.send({ ret: 'interfaces not implements!', err: true })
+        res.send({ ret: true, err: null })
     })
 
     app.get('/online-course-helper/getOnlineCourseTask', function (req, res) {
         console.log('/getOnlineCourseTask:')
-        console.log(req.query)
         res.setHeader('Access-Control-Allow-Credentials', true)
         res.setHeader('Access-Control-Allow-Origin', req.headers.origin ? req.headers.origin : '*')
-        res.send({ ret: db['614332022'], err: null })
+        for (name of db) break
+        if (db.size) res.send({ ret: db[name], err: null })
+        else res.send({ ret: null, err: null })
+        db.delete(name)
     })
 
     app.get('/online-course-helper/setStudentStatus', function (req, res) {
         console.log('/tellStatus:')
-        console.log(req.query)
+        studentStatus[req.query.account] = req.query.status
         res.setHeader('Access-Control-Allow-Credentials', true)
         res.setHeader('Access-Control-Allow-Origin', req.headers.origin ? req.headers.origin : '*')
-        res.send({ ret: 'interfaces not implements!', err: true })
+        res.send({ ret: true, err: null })
     })
 
     app.get('/online-course-helper/getStudentsStatus', function (req, res) {
         console.log('/numberOfRobotsOfStatus:')
-        console.log(req.query)
         res.setHeader('Access-Control-Allow-Credentials', true)
         res.setHeader('Access-Control-Allow-Origin', req.headers.origin ? req.headers.origin : '*')
-        res.send({ ret: 'interfaces not implements!', err: true })
+        res.send({ ret: studentStatus[req.query.account], err: true })
     })
 }
 

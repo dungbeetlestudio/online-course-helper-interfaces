@@ -1,20 +1,21 @@
-类型：HTTP POST FORM
+类型：HTTP POST
 输入：
-<form action="/online-course-helper/putVerification" method="post" enctype="multipart/form-data">
-<input type="file" name="image" size="50" />
-<input type="submit" value="上传文件" />
-</form>
+{
+    name:'517013400',    //账号
+    value:'???????????'  //cookie的值     
+}
 输出：{
     err: null,    //错误描述
     ret: true     //成功返回true，否则false，并设置错误描述
 }
 
 类型：HTTP GET
-输入：{}
+输入：{
+    name:'517013400',  //账号
+}
 输出：{
     err: null,    //错误描述
-    //成功返回下载文件路径，否则false，并设置错误描述
-    ret:'http://127.0.0.1:8000/verification/614332022-xfskyl6422.png'     
+    ret:'??????????????'   //成功返回cookie的值,否则返回null，并设置错误。
 }
 
 
