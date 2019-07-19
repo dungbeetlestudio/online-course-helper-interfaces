@@ -1,5 +1,5 @@
-var db = {
-    'zhouhongbo': {
+var db = [
+    {
         course: 'Ionic 4的学习与使用',            //直播间名，或者课程名
         accounts: [                              //用户提供的额外学生
             ['517013400', 'xfskyl'],             //需要执行任务的学生账号1
@@ -22,36 +22,27 @@ var db = {
             '这个课程要学多久呢？',
         ]
     }
-}
+]
 
 var studentStatus = { '517013400': '上课中' }
 
 var init = function (app) {
     console.log('init peoples service.')
-    app.get('/online-course-helper/sign', function (req, res) {
-        console.log('/sign:')
-        console.log(req.query)
-        res.setHeader('Access-Control-Allow-Credentials', true)
-        res.setHeader('Access-Control-Allow-Origin', req.headers.origin ? req.headers.origin : '*')
-        res.send({ ret: 'interfaces not implements!', err: true })
-    })
 
-    app.post('/online-course-helper/putOnlineCourseTask', function (req, res) {
-        console.log('/putOnlineCourseTask:')
-        db[req.body.name] = req.body
+    app.post('/online-course-helper/putCourseTask', function (req, res) {
+        console.log('/putCourseTask:')
+        db.push(req.body)
         res.setHeader('Access-Control-Allow-Credentials', true)
         res.setHeader('Access-Control-Allow-Origin', req.headers.origin ? req.headers.origin : '*')
         res.send({ ret: true, err: null })
     })
 
-    app.get('/online-course-helper/getOnlineCourseTask', function (req, res) {
-        console.log('/getOnlineCourseTask:')
+    app.get('/online-course-helper/getCourseTask', function (req, res) {
+        console.log('/getCourseTask:')
         res.setHeader('Access-Control-Allow-Credentials', true)
-        res.setHeader('Access-Control-Allow-Origin', req.headers.origin ? req.headers.origin : '*')
-        for (name of db) break
-        if (db.size) res.send({ ret: db[name], err: null })
+        res.setHeader('Access-Control-Allow-Origin', req.headers.origin ? req.headers.origin : '*')      
+        if (db.size) res.send({ ret: db.splice(0,1), err: null })
         else res.send({ ret: null, err: null })
-        db.delete(name)
     })
 
     app.get('/online-course-helper/setStudentStatus', function (req, res) {

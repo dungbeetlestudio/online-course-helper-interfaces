@@ -2,7 +2,7 @@ var multer = require('multer')
 var upload = multer({ dest: 'online-course-helper/verifications' });
 var fs = require('fs');
 
-var db = new Set(['614332022-xfskyl6422.png'])
+var db = new Set(['614332022:xfskyl6422.png'])
 
 var init = function (app) {
     console.log('init verifications service.')
