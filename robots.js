@@ -41,7 +41,7 @@ var init = function (app) {
         console.log('/getCourseTask:')
         res.setHeader('Access-Control-Allow-Credentials', true)
         res.setHeader('Access-Control-Allow-Origin', req.headers.origin ? req.headers.origin : '*')      
-        if (db.size) res.send({ ret: db.splice(0,1), err: null })
+        if (db.length) res.send({ ret: db.splice(0,1), err: null })
         else res.send({ ret: null, err: null })
     })
 
@@ -53,11 +53,11 @@ var init = function (app) {
         res.send({ ret: true, err: null })
     })
 
-    app.get('/online-course-helper/getStudentsStatus', function (req, res) {
-        console.log('/numberOfRobotsOfStatus:')
+    app.get('/online-course-helper/getStudentStatus', function (req, res) {
+        console.log('/getStudentStatus:')
         res.setHeader('Access-Control-Allow-Credentials', true)
         res.setHeader('Access-Control-Allow-Origin', req.headers.origin ? req.headers.origin : '*')
-        res.send({ ret: studentStatus[req.query.account], err: true })
+        res.send({ ret: studentStatus[req.query.account] ? studentStatus[req.query.account] : null, err: null })
     })
 }
 

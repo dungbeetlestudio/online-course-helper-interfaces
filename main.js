@@ -1,6 +1,5 @@
 var main = async () => {
     var app = require('./express')
-    
     require('./robots').init(app)
     require('./verifications').init(app)
     require('./cookies').init(app)
