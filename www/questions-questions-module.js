@@ -103,19 +103,8 @@ var QuestionsPage = /** @class */ (function () {
         this.items = [];
     }
     QuestionsPage.prototype.ngOnInit = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var _a;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.storage.get('questions')];
-                    case 1:
-                        _a.items = _b.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
+        var _this = this;
+        this.storage.get('questions').then(function (items) { return _this.items = items == null ? [] : items; });
     };
     QuestionsPage.prototype.ionViewDidLeave = function () { };
     QuestionsPage.prototype.addClick = function () {

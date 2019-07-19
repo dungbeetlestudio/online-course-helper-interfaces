@@ -97,14 +97,14 @@ __webpack_require__.r(__webpack_exports__);
 
 var InteractionsPage = /** @class */ (function () {
     function InteractionsPage(http, modal, storage) {
-        var _this = this;
         this.http = http;
         this.modal = modal;
         this.storage = storage;
         this.items = [];
-        storage.get('interactions').then(function (items) { return _this.items = items == null ? [] : items; });
     }
     InteractionsPage.prototype.ngOnInit = function () {
+        var _this = this;
+        this.storage.get('interactions').then(function (items) { return _this.items = items == null ? [] : items; });
     };
     InteractionsPage.prototype.ionViewDidLeave = function () { };
     InteractionsPage.prototype.addClick = function () {
