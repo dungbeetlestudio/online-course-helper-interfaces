@@ -168,7 +168,7 @@ var StudentsPage = /** @class */ (function () {
                         return [4 /*yield*/, this.storage.get('students')];
                     case 1:
                         _a.students = _c.sent();
-                        this.students ? this.students : [];
+                        this.students = this.students ? this.students : [];
                         for (_i = 0, _b = this.students; _i < _b.length; _i++) {
                             s = _b[_i];
                             this.items.push({ status: '学生离线', text: s });
