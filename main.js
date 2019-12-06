@@ -3,6 +3,7 @@ var main = async () => {
     require('./robots').init(app)
     require('./verifications').init(app)
     require('./cookies').init(app)
+    require('./three-widget').init(app)
 
     app.listen(8000, function () {
         console.log('HTTP Server is running on: http://www.dungbeetles.xyz:8000/online-course-helper')
