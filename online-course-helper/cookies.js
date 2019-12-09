@@ -18,6 +18,8 @@ var init = function (app) {
         var value = fs.readFileSync(`online-course-helper/cookies/${req.query.name}.cookie`)
         res.send({ ret: value, err: null })
     })
+
+    
 }
 
 module.exports.init = init
