@@ -29,7 +29,7 @@ var init = function (app) {
         var deadline = currentTime.setMonth(currentTime.getMonth() + 3);
         
         if(db[req.query.id] != null && db[req.query.id].tried) {
-            res.send({ ret: null, err: "重复申请！" }) 
+            res.send({ ret: `http://${req.headers.host}/keys/${req.query.id}.key`, err: "重复申请！" }) 
             return
         }
 
