@@ -27,6 +27,7 @@ var init = function (app) {
     app.get('/three-qt/authorization',function (req,res) {
         var currentTime = new Date()
         var deadline = currentTime.setMonth(currentTime.getMonth() + 3);
+        console.log(deadline.valueOf())
         
         if(db[req.query.id] != null && db[req.query.id].tried) {
             res.send({ ret: `http://${req.headers.host}/keys/${req.query.id}.key`, err: "重复申请！" }) 
