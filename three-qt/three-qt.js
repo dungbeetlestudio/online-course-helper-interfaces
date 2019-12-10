@@ -11,7 +11,7 @@ var init = function (app) {
         res.setHeader('Access-Control-Allow-Credentials', true)
         res.setHeader('Access-Control-Allow-Origin', req.headers.origin ? req.headers.origin : '*')
         db[req.query.id].flag = req.query.flag
-        db[req.query.id].deadline = req.query.deadline
+        db[req.query.id].deadline = Number.parse(req.query.deadline)
         console.log(req.query)
         res.send({ ret: true, err: null })
     })
@@ -27,7 +27,7 @@ var init = function (app) {
     app.get('/three-qt/authorization',function (req,res) {
         var currentTime = new Date()
         var deadline = currentTime.setMonth(currentTime.getMonth() + 3);
-        console.log(deadline.valueOf())
+        console.log(deadline.valueOf() / 1000)
         
         if(db[req.query.id] != null && db[req.query.id].tried) {
             res.send({ ret: `http://${req.headers.host}/keys/${req.query.id}.key`, err: "重复申请！" }) 
@@ -38,13 +38,13 @@ var init = function (app) {
         res.setHeader('Access-Control-Allow-Credentials', true)
         res.setHeader('Access-Control-Allow-Origin', req.headers.origin ? req.headers.origin : '*')
         
-        cmd(`./authorization ${req.query.id} ${req.query.flag} ${deadline.valueOf()}`,{cwd:'three-qt/'},function(error, stdout, stderr) {
+        cmd(`./authorization ${req.query.id} ${req.query.flag} ${deadline.valueOf() / 1000}`,{cwd:'three-qt/'},function(error, stdout, stderr) {
            if(error) {
                 res.send({ ret: null, err: "参数不对！" })
                 return
            }
            
-           db[req.query.id] = { flag:req.query.flag, deadline:deadline.valueOf(), tried:true }
+           db[req.query.id] = { flag:req.query.flag, deadline:deadline.valueOf() / 1000, tried:true }
            fs.renameSync(`three-qt/${stdout}`,`three-qt/keys/${stdout}`)
            res.send({ ret: `http://${req.headers.host}/keys/${stdout}`, err: null })
            fs.writeFileSync('three-qt/db.json',JSON.stringify(db,null," "))
