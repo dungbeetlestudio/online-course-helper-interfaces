@@ -11,7 +11,7 @@ var init = function (app) {
         res.setHeader('Access-Control-Allow-Credentials', true)
         res.setHeader('Access-Control-Allow-Origin', req.headers.origin ? req.headers.origin : '*')
         db[req.query.id].flag = req.query.flag
-        db[req.query.id].deadline = Number.parse(req.query.deadline)
+        db[req.query.id].deadline = parseInt(req.query.deadline)
         console.log(req.query)
         res.send({ ret: true, err: null })
     })
